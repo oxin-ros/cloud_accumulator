@@ -1,8 +1,8 @@
-cmake_minimum_required(VERSION 2.8.12)
+cmake_minimum_required(VERSION 3.10.2)
 
 # Don't set PROJECT_VERSION to empty string when no VERSION is given to project() command.
 if(POLICY CMP0048)
-  cmake_policy(SET CMP0048 OLD)
+    cmake_policy(SET CMP0048 OLD)
 endif()
 
 project(cloud_accumulator)
@@ -12,7 +12,7 @@ include(cmake/project_version.cmake)
 # - Configuration for code optimization -
 
 if (NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE RELEASE CACHE STRING "Build type: DEBUG or RELEASE" FORCE)
+    set(CMAKE_BUILD_TYPE RELEASE CACHE STRING "Build type: DEBUG or RELEASE" FORCE)
 endif ()
 
 include(cmake/optimization_flags.cmake)
@@ -22,20 +22,20 @@ include(cmake/optimization_flags.cmake)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
-  roscpp
-  tf2
-  tf2_msgs
-  tf2_ros
-  std_srvs
+    geometry_msgs
+    roscpp
+    tf2
+    tf2_msgs
+    tf2_ros
+    std_srvs
 )
 
 
 find_package(OpenMP)
 if (OPENMP_FOUND)
-  set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
-  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-  set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+    set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
+    set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    set (CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
 endif()
 
 find_package(Eigen3 REQUIRED)
@@ -67,8 +67,8 @@ catkin_package(
 ## Your package locations should be listed before other locations
 # include_directories(include)
 include_directories(
-  ${PCL_INCLUDE_DIRS}
-  ${catkin_INCLUDE_DIRS}
+    ${PCL_INCLUDE_DIRS}
+    ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a C++ executable
@@ -84,16 +84,15 @@ target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
 
 # Mark executables and/or libraries for installation
 install(TARGETS ${PROJECT_NAME}
-  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
-  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 # Mark other files for installation (e.g. launch and bag files, etc.)
-#install(FILES
-#  launch/start_demo.launch
-#  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
-#)
+install(DIRECTORY
+    launch
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 ######################################
 ## Define information for packaging ##
