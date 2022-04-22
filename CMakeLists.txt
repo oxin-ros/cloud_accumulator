@@ -5,7 +5,7 @@ if(POLICY CMP0048)
   cmake_policy(SET CMP0048 OLD)
 endif()
 
-project(rc_cloud_accumulator)
+project(cloud_accumulator)
 include(cmake/project_version.cmake)
 
 
@@ -39,7 +39,7 @@ if (OPENMP_FOUND)
 endif()
 
 find_package(Eigen3 REQUIRED)
-find_package(PCL 1.3 REQUIRED COMPONENTS common io visualization)
+find_package(PCL REQUIRED COMPONENTS common io visualization)
 add_definitions(${PCL_DEFINITIONS})
 
 
@@ -72,10 +72,10 @@ include_directories(
 )
 
 ## Declare a C++ executable
-add_executable(rc_cloud_accumulator src/main.cc src/cloud_accumulator.cc src/cloud_visualizer.cc)
-target_include_directories(rc_cloud_accumulator SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR} ${PCL_INCLUDE_DIRS})
-target_link_libraries(rc_cloud_accumulator ${catkin_LIBRARIES} ${PCL_LIBRARIES})
-target_compile_options(rc_cloud_accumulator PRIVATE -Wall)
+add_executable(${PROJECT_NAME} src/main.cc )
+target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${EIGEN3_INCLUDE_DIR} ${PCL_INCLUDE_DIRS})
+target_link_libraries(${PROJECT_NAME} ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall)
 
 
 #############
@@ -83,7 +83,7 @@ target_compile_options(rc_cloud_accumulator PRIVATE -Wall)
 #############
 
 # Mark executables and/or libraries for installation
-install(TARGETS rc_cloud_accumulator
+install(TARGETS ${PROJECT_NAME}
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -99,7 +99,7 @@ install(TARGETS rc_cloud_accumulator
 ## Define information for packaging ##
 ######################################
 # optionally set description and maintainer (if not set will use defaults from package_debian.cmake)
-set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Roboception viewer for the rc_visard")
+set(CPACK_DEBIAN_PACKAGE_DESCRIPTION "Viewer for the point clouds.")
 
 # optionally set package maintainer (otherwise defaults to Roboception <info@roboception.de>)
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Felix Endres <felix.endres@roboception.de>")
