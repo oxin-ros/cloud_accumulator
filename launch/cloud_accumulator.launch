@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <node name="cloud_accumulator" pkg="cloud_accumulator" type="cloud_accumulator_node" output="screen">
+        <param name="pointcloud_topic" default="transformed_points"/>
+        <param name="pose_topic" default="pose"/>
+        <param name="trajectory_topic" default="trajectory"/>
+    </node>
+
+</launch>
