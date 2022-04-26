@@ -8,9 +8,11 @@ endif()
 project(cloud_accumulator)
 include(cmake/project_version.cmake)
 
+# Use C++ 17.
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # - Configuration for code optimization -
-
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RELEASE CACHE STRING "Build type: DEBUG or RELEASE" FORCE)
 endif ()
